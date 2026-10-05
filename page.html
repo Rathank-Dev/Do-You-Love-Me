@@ -4,18 +4,53 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Do You Love Me?</title>
-        <link rel="stylesheet" href="styleLanding.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap">
+        <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
-        <div class="wrapper">
-            <img class="gif" alt="gif" src="https://media.giphy.com/media/hiJ9ypGI5tIKdwKoK2/giphy.gif"/>
-            <h1 class="question"> What is your name? I want to know you better </h1>
-            <div class="center">
-                <input type="text" id="fname" name="fname">
-                <button id="start_button">Start!</button>
-            </div>
-            </div> 
-        </div>
+        <main class="desk">
+            <article class="note" id="note">
+                <figure class="photo">
+                    <img id="photo" alt="A cute animal waving hello" src="https://media.giphy.com/media/hiJ9ypGI5tIKdwKoK2/giphy.gif"/>
+                </figure>
+
+                <section id="step-name">
+                    <p class="line" id="name-prompt">What's your name? I want to know you better.</p>
+                    <form id="name-form" novalidate>
+                        <p class="line to-line">
+                            <label for="fname">To:</label>
+                            <input type="text" id="fname" name="fname" autocomplete="given-name" spellcheck="false">
+                        </p>
+                        <button type="submit" class="pass">Pass the note</button>
+                    </form>
+                </section>
+
+                <section id="step-ask" hidden>
+                    <p class="line to-line">To: <span class="ink" id="to-name"></span></p>
+                    <div id="lines" aria-live="polite">
+                        <p class="line ask">Will you go out with me?</p>
+                    </div>
+                    <div class="choices" id="choices">
+                        <button type="button" class="box yes" id="yes">
+                            <span class="square" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path d="M3 13 L9 19 L22 3"/></svg>
+                            </span>
+                            <span class="label">Yes</span>
+                        </button>
+                        <button type="button" class="box no" id="no">
+                            <span class="square" aria-hidden="true"></span>
+                            <span class="label">No</span>
+                        </button>
+                    </div>
+                    <p class="line aside" id="aside">(check one)</p>
+                    <figure class="clip" id="clip" hidden>
+                        <video id="clip-video" controls loop playsinline preload="none"></video>
+                    </figure>
+                </section>
+            </article>
+        </main>
         <script src="script.js"></script>
     </body>
 </html>

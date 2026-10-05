@@ -1,0 +1,400 @@
+:root {
+    --paper: #fbfaf3;
+    --rule-line: #a9c8e8;
+    --margin-line: #e0614a;
+    --pencil: #3b3a40;
+    --ink: #2340a8;
+    --highlight: #ffe45c;
+    --desk: #c9cfc4;
+    --crease: rgba(59, 58, 64, 0.06);
+
+    --rule: 2.5rem;
+    --margin: 4.5rem;
+    --hand: "Gaegu", "Comic Sans MS", "Chalkboard SE", cursive;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --desk: #262825;
+        --paper: #ebe8dc;
+        --crease: rgba(0, 0, 0, 0.08);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--desk);
+    color: var(--pencil);
+    font-family: var(--hand);
+}
+
+.desk {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 48px 16px;
+    overflow-x: hidden;
+}
+
+/* The note: ruled paper, red margin, two fold creases */
+.note {
+    position: relative;
+    width: min(100%, 600px);
+    min-height: calc(var(--rule) * 12);
+    padding: calc(var(--rule) * 2) 2rem calc(var(--rule) * 1.5) calc(var(--margin) + 1rem);
+    font-size: 1.65rem;
+    line-height: var(--rule);
+    background:
+        linear-gradient(to right, transparent calc(var(--margin) - 1px), var(--margin-line) calc(var(--margin) - 1px), var(--margin-line) var(--margin), transparent var(--margin)),
+        linear-gradient(to bottom, transparent 49.8%, var(--crease) 50%, transparent 50.6%),
+        linear-gradient(to right, transparent 49.8%, var(--crease) 50%, transparent 50.4%),
+        linear-gradient(to bottom, transparent calc(var(--rule) - 1px), var(--rule-line) calc(var(--rule) - 1px)) 0 -0.45rem / 100% var(--rule),
+        var(--paper);
+    transform: rotate(-1.2deg);
+    box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.08),
+        0 14px 30px -12px rgba(30, 30, 20, 0.35);
+}
+
+.line {
+    min-height: var(--rule);
+}
+
+/* Taped-on photo */
+.photo {
+    position: relative;
+    float: right;
+    width: 168px;
+    margin: 0 -4.25rem var(--rule) 1rem;
+    padding: 8px 8px 30px;
+    background: #fff;
+    transform: rotate(5deg);
+    box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.35);
+    z-index: 2;
+}
+
+.photo::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 84px;
+    height: 24px;
+    transform: translateX(-50%) rotate(-4deg);
+    background: rgba(255, 244, 196, 0.72);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: #eee;
+}
+
+/* Name step */
+.to-line {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    margin-top: var(--rule);
+}
+
+.to-line label {
+    flex: none;
+}
+
+#fname {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    font-weight: 700;
+    line-height: var(--rule);
+    height: var(--rule);
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    caret-color: var(--ink);
+}
+
+#fname:focus {
+    outline: none;
+    background: linear-gradient(to top, rgba(35, 64, 168, 0.12) 3px, transparent 3px);
+}
+
+.error {
+    color: var(--margin-line);
+}
+
+/* Hand-drawn outline used by the pass button and the checkboxes */
+.pass,
+.square {
+    border: 2px solid var(--pencil);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.pass {
+    margin-top: var(--rule);
+    padding: 0 1.1rem;
+    height: var(--rule);
+    font: inherit;
+    font-weight: 700;
+    line-height: calc(var(--rule) - 4px);
+    color: var(--pencil);
+    background: transparent;
+    cursor: pointer;
+}
+
+.pass:hover {
+    background: rgba(59, 58, 64, 0.06);
+}
+
+button:focus-visible {
+    outline: 3px dashed var(--ink);
+    outline-offset: 4px;
+}
+
+/* Question step */
+.ink {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.ask {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-top: var(--rule);
+}
+
+.ask.struck {
+    text-decoration: line-through;
+    text-decoration-color: var(--margin-line);
+    text-decoration-thickness: 3px;
+    opacity: 0.55;
+}
+
+.ask[data-stage="1"] {
+    font-weight: 400;
+}
+
+.ask[data-stage="2"] {
+    color: var(--ink);
+    transform: rotate(-1deg);
+}
+
+.ask[data-stage="3"] {
+    color: var(--ink);
+    font-size: 2.7rem;
+    transform: rotate(1.5deg);
+    transform-origin: left;
+}
+
+.ask.won {
+    color: var(--ink);
+}
+
+.ask + .ask {
+    margin-top: 0;
+}
+
+.heart {
+    width: 1.1em;
+    height: 1.1em;
+    vertical-align: -0.15em;
+    margin-left: 0.2em;
+    fill: none;
+    stroke: var(--margin-line);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.choices {
+    clear: both;
+    position: relative;
+    height: calc(var(--rule) * 3);
+    margin-top: var(--rule);
+}
+
+.box {
+    position: absolute;
+    top: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: var(--rule);
+    padding: 0 0.4rem;
+    font: inherit;
+    font-size: 2rem;
+    color: var(--pencil);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: left 0.25s ease, top 0.25s ease;
+}
+
+.yes {
+    left: 0;
+}
+
+.no {
+    left: 9.5rem;
+}
+
+.square {
+    position: relative;
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    background: var(--paper);
+}
+
+.square svg {
+    position: absolute;
+    left: -0.2rem;
+    top: -0.7rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    overflow: visible;
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+}
+
+.box:hover .square {
+    background: rgba(35, 64, 168, 0.08);
+}
+
+.yes.checked .square svg {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.45s ease-out;
+}
+
+.yes.checked .label {
+    background: linear-gradient(transparent 20%, var(--highlight) 20%, var(--highlight) 85%, transparent 85%) no-repeat 0 0 / 100% 100%;
+    animation: swipe 0.4s 0.4s ease-out both;
+}
+
+.no:disabled {
+    cursor: default;
+    opacity: 0.45;
+}
+
+.no:disabled .label {
+    text-decoration: line-through;
+    text-decoration-color: var(--margin-line);
+    text-decoration-thickness: 3px;
+}
+
+.yes:disabled {
+    cursor: default;
+}
+
+.aside {
+    font-size: 1.35rem;
+    opacity: 0.7;
+}
+
+@keyframes swipe {
+    from { background-size: 0 100%; }
+    to { background-size: 100% 100%; }
+}
+
+.heart path {
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: draw 0.8s 0.9s ease-out forwards;
+}
+
+@keyframes draw {
+    to { stroke-dashoffset: 0; }
+}
+
+@media (max-width: 640px) {
+    :root {
+        --rule: 2.25rem;
+        --margin: 2.5rem;
+    }
+
+    .note {
+        font-size: 1.45rem;
+        padding: var(--rule) 1rem var(--rule) calc(var(--margin) + 0.75rem);
+        transform: rotate(-0.6deg);
+    }
+
+    .photo {
+        width: 116px;
+        padding: 6px 6px 20px;
+        margin: 0 -0.5rem 0.5rem 0.75rem;
+    }
+
+    .photo::before {
+        width: 60px;
+        height: 18px;
+    }
+
+    .ask {
+        font-size: 1.9rem;
+    }
+
+    .ask[data-stage="3"] {
+        font-size: 2.1rem;
+    }
+
+    .choices {
+        height: calc(var(--rule) * 4);
+    }
+
+    .box {
+        font-size: 1.8rem;
+    }
+
+    .no {
+        left: 7.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .box,
+    .yes.checked .square svg {
+        transition: none;
+    }
+
+    .yes.checked .label,
+    .heart path {
+        animation: none;
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Video clip shown after an answer */
+.clip {
+    width: min(100%, 300px);
+    margin: var(--rule) auto 0;
+    padding: 8px;
+    background: #fff;
+    transform: rotate(-2deg);
+    box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.35);
+}
+
+.clip[hidden] {
+    display: none;
+}
+
+.clip video {
+    display: block;
+    width: 100%;
+    max-height: 70vh;
+    background: #000;
+}
