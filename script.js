@@ -97,6 +97,7 @@ function showVideo(src) {
     clipVideo.src = src;
     clip.hidden = false;
     clipVideo.play().catch(() => {});
+    clip.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 // Hop the "No" box somewhere else in the choices area, never on top of "Yes"

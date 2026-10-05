@@ -29,6 +29,7 @@
 
 body {
     min-height: 100vh;
+    min-height: 100dvh;
     background: var(--desk);
     color: var(--pencil);
     font-family: var(--hand);
@@ -36,6 +37,7 @@ body {
 
 .desk {
     min-height: 100vh;
+    min-height: 100dvh;
     display: grid;
     place-items: center;
     padding: 48px 16px;
@@ -150,10 +152,17 @@ body {
     color: var(--pencil);
     background: transparent;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
-.pass:hover {
-    background: rgba(59, 58, 64, 0.06);
+@media (hover: hover) {
+    .pass:hover {
+        background: rgba(59, 58, 64, 0.06);
+    }
+
+    .box:hover .square {
+        background: rgba(35, 64, 168, 0.08);
+    }
 }
 
 button:focus-visible {
@@ -237,6 +246,8 @@ button:focus-visible {
     background: transparent;
     border: none;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: left 0.25s ease, top 0.25s ease;
 }
 
@@ -270,10 +281,6 @@ button:focus-visible {
     stroke-linejoin: round;
     stroke-dasharray: 40;
     stroke-dashoffset: 40;
-}
-
-.box:hover .square {
-    background: rgba(35, 64, 168, 0.08);
 }
 
 .yes.checked .square svg {
@@ -363,6 +370,42 @@ button:focus-visible {
     .no {
         left: 7.5rem;
     }
+
+    .clip {
+        padding: 6px;
+    }
+}
+
+@media (max-width: 400px) {
+    .desk {
+        padding: 24px 10px;
+    }
+
+    .note {
+        font-size: 1.35rem;
+        padding-right: 0.75rem;
+    }
+
+    .photo {
+        float: none;
+        margin: 0 auto var(--rule);
+    }
+
+    .ask {
+        font-size: 1.7rem;
+    }
+
+    .ask[data-stage="3"] {
+        font-size: 1.85rem;
+    }
+
+    .box {
+        font-size: 1.6rem;
+    }
+
+    .no {
+        left: 6.25rem;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -380,7 +423,7 @@ button:focus-visible {
 
 /* Video clip shown after an answer */
 .clip {
-    width: min(100%, 300px);
+    width: min(100%, 300px, 45dvh);
     margin: var(--rule) auto 0;
     padding: 8px;
     background: #fff;
@@ -395,6 +438,6 @@ button:focus-visible {
 .clip video {
     display: block;
     width: 100%;
-    max-height: 70vh;
+    height: auto;
     background: #000;
 }
